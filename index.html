@@ -196,11 +196,15 @@
   </head>
   <body>
     <div class="login-container">
-      
       <div class="brand-header">
         <div class="logo-mark">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
         </div>
         <div class="logo-title">Driver Rating</div>
@@ -212,23 +216,33 @@
         <form id="loginForm">
           <div class="input-group">
             <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Enter your username" required />
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter your username"
+              required
+            />
           </div>
           <div class="input-group">
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="••••••••" required />
+            <input
+              type="password"
+              id="password"
+              placeholder="••••••••"
+              required
+            />
           </div>
           <button type="submit" class="login-btn">Log In</button>
           <div class="message" id="message"></div>
         </form>
       </div>
-
     </div>
 
     <script>
       // Replace with your actual credentials or config vars
-      const SUPABASE_URL = "YOUR_SUPABASE_URL"; 
-      const SUPABASE_KEY = "YOUR_SUPABASE_KEY"; 
+      const SUPABASE_URL = "https://vioupfkhpdyfbuatjtxr.supabase.co";
+      const SUPABASE_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpb3VwZmtocGR5ZmJ1YXRqdHhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczNTU0OTcsImV4cCI6MjA5MjkzMTQ5N30.KpQ3syRkSzCyPgkbeVX6OYY8pu13QshL-iQ2F48Vevk";
 
       async function login(username, password) {
         const msgEl = document.getElementById("message");
