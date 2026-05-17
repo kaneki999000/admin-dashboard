@@ -400,7 +400,7 @@
         min-width: 0 !important;
       }
     }
-    @media (max-width: 700px) {
+@media (max-width: 700px) {
       :root { --sidebar-w: 240px; }
       .sidebar { transform: translateX(-100%); }
       .sidebar.open { transform: translateX(0); }
@@ -414,7 +414,7 @@
       /* ── Telegram Mini App Filter Fixes ── */
       .filter-bar { 
         display: flex !important;
-        flex-direction: column !important;
+        flex-direction: column !important; /* Stack everything into single rows */
         gap: 12px !important; 
         padding: 16px !important; 
       }
@@ -424,6 +424,7 @@
         margin-bottom: -4px; 
       }
 
+      /* Make all inputs/dropdowns take up exactly 100% width of the screen */
       .filter-bar input[type="text"],
       .filter-bar input[type="date"],
       .filter-select-wrap,
@@ -436,27 +437,13 @@
         box-sizing: border-box !important;
       }
 
-      /* Core iOS Native Date Picker System Override & Reset */
+      /* Core iOS Native Date Picker System Override */
       .filter-bar input[type="date"] {
-        -webkit-appearance: none !important;
+        -webkit-appearance: none !important; /* Clears iOS Safari constraints */
         appearance: none !important;
-        min-height: 40px !important;
+        min-height: 40px !important; /* Guarantees enough vertical space for the inner text */
         background-color: var(--card) !important;
-        position: relative;
-      }
-
-      /* Injecting "Select Date" Placeholder for iOS when empty */
-      .filter-bar input[type="date"]:not(:focus):invalid::before {
-        content: "Select Date";
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--slate-light);
-        font-family: inherit;
-        font-size: 13px;
-        pointer-events: none; /* Allows click to pass straight to the picker hidden behind it */
-        width: 100%;
+        line-height: normal !important;
       }
       
       .stat-value { font-size: 24px; }
