@@ -411,34 +411,39 @@
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .content { padding: 16px; }
       
-      /* Mobile Filter Optimization */
+      /* ── Telegram Mini App Filter Fixes ── */
       .filter-bar { 
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px; 
-        padding: 14px; 
+        display: flex !important;
+        flex-direction: column !important; /* Stack everything into single rows */
+        gap: 12px !important; 
+        padding: 16px !important; 
       }
+      
       .filter-label { 
         width: 100%; 
-        margin-bottom: -2px; 
+        margin-bottom: -4px; 
       }
-      /* Search and Branch/Alert dropdowns share rows comfortably */
-      #filterSearch {
-        flex: 1 1 100%; /* Search gets its own row or spans full width */
-      }
-      .filter-select-wrap { 
-        flex: 1 1 calc(50% - 5px); /* Side by side dropdowns */
-        min-width: 110px;
-      }
+
+      /* Make all inputs/dropdowns take up exactly 100% width of the screen */
+      .filter-bar input[type="text"],
+      .filter-bar input[type="date"],
+      .filter-select-wrap,
       .filter-select-wrap select {
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        flex: none !important;
+        display: block !important;
+        box-sizing: border-box !important;
       }
-      /* Give the date picker full width so the iOS calendar layout fits perfectly */
-      #filterDate { 
-        flex: 1 1 100%; 
-        width: 100%;
-        display: block;
-        box-sizing: border-box;
+
+      /* Core iOS Native Date Picker System Override */
+      .filter-bar input[type="date"] {
+        -webkit-appearance: none !important; /* Clears iOS Safari constraints */
+        appearance: none !important;
+        min-height: 40px !important; /* Guarantees enough vertical space for the inner text */
+        background-color: var(--card) !important;
+        line-height: normal !important;
       }
       
       .stat-value { font-size: 24px; }
