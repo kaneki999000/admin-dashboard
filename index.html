@@ -414,7 +414,7 @@
       /* ── Telegram Mini App Filter Fixes ── */
       .filter-bar { 
         display: flex !important;
-        flex-direction: column !important; /* Stack everything into single rows */
+        flex-direction: column !important;
         gap: 12px !important; 
         padding: 16px !important; 
       }
@@ -424,7 +424,6 @@
         margin-bottom: -4px; 
       }
 
-      /* Make all inputs/dropdowns take up exactly 100% width of the screen */
       .filter-bar input[type="text"],
       .filter-bar input[type="date"],
       .filter-select-wrap,
@@ -437,13 +436,27 @@
         box-sizing: border-box !important;
       }
 
-      /* Core iOS Native Date Picker System Override */
+      /* Core iOS Native Date Picker System Override & Reset */
       .filter-bar input[type="date"] {
-        -webkit-appearance: none !important; /* Clears iOS Safari constraints */
+        -webkit-appearance: none !important;
         appearance: none !important;
-        min-height: 40px !important; /* Guarantees enough vertical space for the inner text */
+        min-height: 40px !important;
         background-color: var(--card) !important;
-        line-height: normal !important;
+        position: relative;
+      }
+
+      /* Injecting "Select Date" Placeholder for iOS when empty */
+      .filter-bar input[type="date"]:not(:focus):invalid::before {
+        content: "Select Date";
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--slate-light);
+        font-family: inherit;
+        font-size: 13px;
+        pointer-events: none; /* Allows click to pass straight to the picker hidden behind it */
+        width: 100%;
       }
       
       .stat-value { font-size: 24px; }
@@ -622,7 +635,7 @@
               <option value="ok">OK Only</option>
             </select>
           </div>
-          <input type="date" id="filterDate" onchange="filterTable()" />
+          <input type="date" id="filterDate" onchange="filterTable()" required />
         </div>
         <div class="table-wrap">
           <table>
