@@ -852,6 +852,7 @@
       }
 
       /* ── MANAGEMENT PANELS ── */
+      /* ── MANAGEMENT PANELS ── */
       .mgmt-tabs {
         display: flex;
         gap: 8px;
@@ -860,7 +861,8 @@
         border-bottom: 1px solid var(--border);
       }
       .mgmt-tab {
-        padding: 8px 16px;
+        flex: 1;
+        padding: 8px 12px;
         border-radius: 8px;
         border: 1.5px solid var(--border);
         background: #fff;
@@ -868,11 +870,31 @@
         font-weight: 600;
         color: var(--slate-mid);
         cursor: pointer;
+        white-space: nowrap;
+        text-align: center;
+        transition: all 0.15s;
       }
       .mgmt-tab.active {
         background: var(--green);
         color: #fff;
         border-color: var(--green);
+      }
+
+      /* Responsive fix for Management Buttons on Mobile screens */
+      @media (max-width: 700px) {
+        .mgmt-tabs {
+          display: grid;
+          grid-template-columns: repeat(
+            2,
+            1fr
+          ); /* Splits into 2 nice rows of 2 boxes */
+          gap: 6px;
+          padding: 12px;
+        }
+        .mgmt-tab {
+          font-size: 12px; /* Marginally downscale font text slightly to protect card constraints */
+          padding: 10px 6px;
+        }
       }
       .mgmt-form-inline {
         padding: 16px 20px;
@@ -2297,15 +2319,13 @@
             })
             .eq("id", id);
         } else {
-          await db
-            .from("questions")
-            .insert([
-              {
-                question_text: text,
-                sort_order: orderNum,
-                question_type: typeStr,
-              },
-            ]);
+          await db.from("questions").insert([
+            {
+              question_text: text,
+              sort_order: orderNum,
+              question_type: typeStr,
+            },
+          ]);
         }
         cancelQuestionEdit();
         await refreshAll();
@@ -2439,17 +2459,15 @@
             alert("Password is required for new users.");
             return;
           }
-          await db
-            .from("user_accounts")
-            .insert([
-              {
-                username,
-                full_name: fullName,
-                password_hash: password,
-                role,
-                is_active: isActive,
-              },
-            ]);
+          await db.from("user_accounts").insert([
+            {
+              username,
+              full_name: fullName,
+              password_hash: password,
+              role,
+              is_active: isActive,
+            },
+          ]);
         }
         cancelUserEdit();
         await loadUsers();
